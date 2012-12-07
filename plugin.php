@@ -48,6 +48,7 @@ class M4H {
 		// Register site styles and scripts
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_scripts' ) );
+   
 	
 		// Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
@@ -128,7 +129,7 @@ class M4H {
 	 */
 	public function register_admin_styles() {
 		wp_enqueue_style( PLUGIN_NAME . '-admin-styles', plugins_url( PLUGIN_NAME . '/css/admin.css' ) );
-    wp_enqueue_style( PLUGIN_NAME . '-bootstrap', plugins_url( PLUGIN_NAME . '/css/bootstrap.min.css' ) );	
+    //wp_enqueue_style( PLUGIN_NAME . '-bootstrap', plugins_url( PLUGIN_NAME . '/css/bootstrap.min.css' ) );	
 	} // end register_admin_styles
 
 	/**
