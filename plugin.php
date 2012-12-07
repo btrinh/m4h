@@ -82,22 +82,8 @@ class M4H {
 
   function m4h_admin_menu() {
     if( function_exists('add_menu_page') ){
-      //require_once(WP_PLUGIN_DIR . '/' . PLUGIN_SLUG . '/views/admin.php');
-      //add_menu_page( 'M4H Directory', 'M4H Directory', 'administrator', 'm4h-admin', array( $this, 'm4h_view_add_user') );
-      //add_menu_page( 'M4H Directory', 'M4H Directory', 'administrator', 'm4h-admin', array( &$this, 'm4h_view_add_user') );
-      //add_menu_page( 'M4H Directory', 'M4H Directory', 'administrator', 'm4h-admin', '/m4h/views/admin.php' );
       add_menu_page( 'M4H Directory', 'M4H Directory', 'administrator', 'm4h-admin', 'm4h_view_add_user' );
-      //add_menu_page( 'M4H Directory', 'M4H Directory', 'administrator', 'm4h-admin', array( $this, 'm4h_admin_controller') );
-      //add_menu_page( 'M4H Directory', 'M4H Directory', 'administrator', 'm4h-admin', array( &$this, 'views/admin.php') );
     }
-  }
-
-  function m4h_admin_controller() {
-  ?>
-  <div class="wrap">
-    <h3>M4H</h3>
-  </div>
-  <?php
   }
 
 	/**
@@ -141,8 +127,6 @@ class M4H {
 	 * Registers and enqueues admin-specific styles.
 	 */
 	public function register_admin_styles() {
-	
-		// TODO:	Change 'plugin-name' to the name of your plugin
 		wp_enqueue_style( PLUGIN_NAME . '-admin-styles', plugins_url( PLUGIN_NAME . '/css/admin.css' ) );
     wp_enqueue_style( PLUGIN_NAME . '-bootstrap', plugins_url( PLUGIN_NAME . '/css/bootstrap.min.css' ) );	
 	} // end register_admin_styles
@@ -151,31 +135,26 @@ class M4H {
 	 * Registers and enqueues admin-specific JavaScript.
 	 */	
 	public function register_admin_scripts() {
-	
-		// TODO:	Change 'plugin-name' to the name of your plugin
 		wp_enqueue_script( PLUGIN_NAME . '-admin-script', plugins_url( PLUGIN_NAME . '/js/admin.js' ) );
-		wp_enqueue_script( PLUGIN_NAME . '-bootstrap', plugins_url( PLUGIN_NAME . '/js/admin.js' ) );
-	
+		wp_enqueue_script( PLUGIN_NAME . '-jquery', plugins_url( PLUGIN_NAME . '/js/jquery-1.8.3.min.js' ) );
+		wp_enqueue_script( PLUGIN_NAME . '-bootstrap', plugins_url( PLUGIN_NAME . '/js/bootstrap.min.js' ) );
 	} // end register_admin_scripts
 	
 	/**
 	 * Registers and enqueues plugin-specific styles.
 	 */
 	public function register_plugin_styles() {
-	
-		// TODO:	Change 'plugin-name' to the name of your plugin
-		wp_enqueue_style( 'plugin-name-plugin-styles', plugins_url( 'plugin-name/css/display.css' ) );
-	
+		wp_enqueue_style( PLUGIN_NAME . '-plugin-styles', plugins_url( PLUGIN_NAME . '/css/display.css' ) );
+    wp_enqueue_style( PLUGIN_NAME . '-bootstrap', plugins_url( PLUGIN_NAME . '/css/bootstrap.min.css' ) );	
 	} // end register_plugin_styles
 	
 	/**
 	 * Registers and enqueues plugin-specific scripts.
 	 */
 	public function register_plugin_scripts() {
-	
-		// TODO:	Change 'plugin-name' to the name of your plugin
-		wp_enqueue_script( 'plugin-name-plugin-script', plugins_url( 'plugin-name/js/display.js' ) );
-	
+		wp_enqueue_script( PLUGIN_NAME . '-jquery', plugins_url( PLUGIN_NAME . '/js/jquery-1.8.3.min.js' ) );
+		wp_enqueue_script( PLUGIN_NAME . '-plugin-script', plugins_url( PLUGIN_NAME . '/js/display.js' ) );
+		wp_enqueue_script( PLUGIN_NAME . '-bootstrap', plugins_url( PLUGIN_NAME . '/js/bootstrap.min.js' ) );
 	} // end register_plugin_scripts
 	
 	/*--------------------------------------------*

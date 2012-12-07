@@ -5,9 +5,15 @@ $states = array('Alabama'=>'AL','Alaska'=>'AK','Arizona'=>'AZ','Arkansas'=>'AR',
 function m4h_view_add_user() {
 ?>
 <div class="wrap">
-  <div id="icon-users" class="icon32"></div>
-  <h3>Hello M4H</h3>
-  <form id="m4h-add-user" method="post" action="">
+  <div class="page-header">
+    <h1>Move For Hunger <small>Directory Management</small></h1>
+  </div>
+  <form id="m4h-add-user" class="form-horizontal" method="post" action="">
+    <div class="control-group">
+      <label class="control-label" for="inputIcon">Email address</label>
+      <div class="controls">
+        <input id="email" class="span2" placeholder="Email" type="text">
+    </div>
   </form>
 </div><!-- /.wrapper -->
 <?php
