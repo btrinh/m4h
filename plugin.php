@@ -190,4 +190,8 @@ class M4H {
 
 // include views
 include_once(WP_PLUGIN_DIR . '/m4h/views/admin.php');
+
+// include controllers
+include_once(WP_PLUGIN_DIR . '/m4h/controllers/admin.php');
+
 $plugin_name = new M4H();

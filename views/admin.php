@@ -7,6 +7,7 @@ else {
   add_action( 'admin_enqueue_scripts', function() {
     wp_enqueue_style( PLUGIN_NAME . '-bootstrap-mod', plugins_url( PLUGIN_NAME . '/css/bootstrap-mod.min.css' ) ); 
   });
+  // echo plugins_url() . '/' . PLUGIN_NAME . '/controllers/admin.php';
 }
 
 function m4h_view_add_user() {
@@ -83,11 +84,13 @@ $states = array(
   <form id="m4h-add-user" class="form-horizontal" method="post" action="">
     <?php
     $fields = array(
-      "First Name" => "first_name",
-      "Last Name" => "last_name",
+      "First Name" => "fname",
+      "Last Name" => "lname",
       "Email" => "email",
-      "Line 1" => "line1",
-      "Line 2" => "line2",
+      "Phone Number" => "phone",
+      "Website" => "website",
+      "Address 1" => "address1",
+      "Address 2" => "address2",
       "City" => "city"
     );
     foreach( $fields as $k => $v) {
@@ -95,7 +98,7 @@ $states = array(
     <div class="control-group">
       <label class="control-label" for="<?php echo $v; ?>"><?php echo $k; ?></label>
       <div class="controls">
-        <input id="<?php echo $v; ?>" class="span2" placeholder="<?php echo $k; ?>" type="text">
+        <input name="<?php echo $v; ?>" class="span2" placeholder="<?php echo $k; ?>" type="text">
       </div>
     </div>
     <?php
@@ -119,14 +122,19 @@ $states = array(
     <div class="control-group">
       <label class="control-label" for="zip">Zip</label>
       <div class="controls">
-        <input id="zip" class="span2" placeholder="Zip" type="text">
+        <input name="zip" class="span2" placeholder="Zip" type="text">
       </div>
     </div>
 
+    <!--
     <div class="control-group">
       <div class="controls">
-        <button type="submit" class="btn btn-primary">Add User</button>
+        <button type="submit" id="m4h-add-user" name="m4h-add-user" class="btn btn-primary">Add User</button>
       </div>
+    </div>
+    -->
+    <div class="form-actions">
+      <button type="submit" id="m4h-add-user" name="m4h-add-user" class="btn btn-primary">Add User</button>
     </div>
 
   </form>
