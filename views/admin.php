@@ -76,29 +76,49 @@ $states = array(
   'Saskatchewan'=> 'SK',
   'Yukon'=> 'YT'
 );
+global $Errors;
 ?>
 <div class="wrap">
+  <!--
   <div class="page-header">
     <h1>Move For Hunger <small>Directory Management</small></h1>
   </div>
+  -->
+  <legend>Add A User</legend>
+  <?php
+  if ( !empty( $Errors ) ) {
+  ?>
+  <div class="alert alert-error alert-block">
+  <h4>Errors:</h4>
+  <?php
+    foreach( $Errors as $error ) {
+      echo "<p>$error</p>";
+    }
+    echo '</div>';
+  }
+  ?>
   <form id="m4h-add-user" class="form-horizontal" method="post" action="">
     <?php
     $fields = array(
-      "First Name" => "fname",
-      "Last Name" => "lname",
-      "Email" => "email",
-      "Phone Number" => "phone",
-      "Website" => "website",
-      "Address 1" => "address1",
-      "Address 2" => "address2",
-      "City" => "city"
+      'First Name' => array('fname', true, ''),
+      'Last Name' => array('lname', true, ''),
+      'Email' => array('email', true, ''),
+      'Phone Number' => array('phone', true, 'e.g. 111-222-3333'),
+      'Website' => array('website', false, ''),
+      'Address 1' => array('address1', true, ''),
+      'Address 2' => array('address2', false, ''),
+      'City' => array('city', true, '')
     );
     foreach( $fields as $k => $v) {
     ?>
     <div class="control-group">
-      <label class="control-label" for="<?php echo $v; ?>"><?php echo $k; ?></label>
+      <label class="control-label" for="<?php echo $v[0]; ?>"><?php echo $k; ?></label>
       <div class="controls">
-        <input name="<?php echo $v; ?>" class="span2" placeholder="<?php echo $k; ?>" type="text">
+      <input type="text" class="span3" placeholder="<?php echo $k ?>" name="<?php echo $v[0] ?>">
+      <?php
+      if ( !empty( $v[2] ) && $v[2] !== 0 )
+        echo "<span class=\"help-inline\">$v[2]</span>";
+      ?>
       </div>
     </div>
     <?php
@@ -108,13 +128,13 @@ $states = array(
       <label class="control-label" for="state">State</label>
       <div class="controls">
         <select id="state" name="state">    
-    <?php
-    foreach( $states as $state => $state_abbr ) {
-    ?>
-      <option value="<?php echo $state_abbr; ?>"><?php echo $state; ?></option>
-    <?php
-    }
-    ?>
+        <?php
+        foreach( $states as $state => $state_abbr ) {
+        ?>
+          <option value="<?php echo $state_abbr; ?>"><?php echo $state; ?></option>
+        <?php
+        }
+        ?>
         </select>
       </div>
     </div>
@@ -122,17 +142,9 @@ $states = array(
     <div class="control-group">
       <label class="control-label" for="zip">Zip</label>
       <div class="controls">
-        <input name="zip" class="span2" placeholder="Zip" type="text">
+        <input name="zip" class="span3" placeholder="Zip" type="text">
       </div>
     </div>
-
-    <!--
-    <div class="control-group">
-      <div class="controls">
-        <button type="submit" id="m4h-add-user" name="m4h-add-user" class="btn btn-primary">Add User</button>
-      </div>
-    </div>
-    -->
     <div class="form-actions">
       <button type="submit" id="m4h-add-user" name="m4h-add-user" class="btn btn-primary">Add User</button>
     </div>
