@@ -1,4 +1,3 @@
-<!-- This file is used to markup the administration form of the plugin. -->
 <?php
 if( !isset($_GET['page']) or $_GET['page'] !== 'm4h-admin') {
   return;

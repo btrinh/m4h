@@ -93,7 +93,28 @@ class M4H {
 	 * @param	boolean	$network_wide	True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog 
 	 */
 	public function activate( $network_wide ) {
-		// TODO:	Define activation functionality here
+    require_once ABSPATH.'wp-admin/includes/upgrade.php';
+    global $wpdb;
+    $sql = '
+      CREATE TABLE IF NOT EXISTS '. $wpdb->prefix .'m4h (
+        id int(11) NOT NULL auto_increment,
+        fname varchar(50) NOT NULL,
+        lname varchar(100) NOT NULL,
+        email varchar(255) NOT NULL,
+        phone varchar(20) NOT NULL,
+        website varchar(255) DEFAULT NULL,
+        address1 varchar(255) NOT NULL,
+        address2 varchar(255) DEFAULT NULL,
+        city varchar(100) NOT NULL,
+        state varchar(5) NOT NULL,
+        zip varchar(20) NOT NULL,
+        lat DECIMAL(10,10) NOT NULL,
+        lng DECIMAL(10,10) NOT NULL,
+        PRIMARY KEY (id)
+      )';
+    dbDelta($sql);
+
+
 	} // end activate
 	
 	/**
@@ -102,7 +123,8 @@ class M4H {
 	 * @param	boolean	$network_wide	True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog 
 	 */
 	public function deactivate( $network_wide ) {
-		// TODO:	Define deactivation functionality here		
+    global $wpdb;
+    $wpdb->query("DROP TABLE IF EXISTS $wpdb->prefix"."m4h");
 	} // end deactivate
 	
 	/**
@@ -111,7 +133,8 @@ class M4H {
 	 * @param	boolean	$network_wide	True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog 
 	 */
 	public function uninstall( $network_wide ) {
-		// TODO:	Define uninstall functionality here		
+    global $wpdb;
+    $wpdb->query("DROP TABLE IF EXISTS $wpdb->prefix"."m4h");
 	} // end uninstall
 
 	/**
