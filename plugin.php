@@ -55,21 +55,9 @@ class M4H {
 		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 		register_uninstall_hook( __FILE__, array( $this, 'uninstall' ) );
 		
-	    /*
-	     * TODO:
-	     * Define the custom functionality for your plugin. The first parameter of the
-	     * add_action/add_filter calls are the hooks into which your code should fire.
-	     *
-	     * The second parameter is the function name located within this class. See the stubs
-	     * later in the file.
-	     *
-	     * For more information: 
-	     * http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
-	     */
-	    add_action( 'TODO', array( $this, 'action_method_name' ) );
-	    add_filter( 'TODO', array( $this, 'filter_method_name' ) );
-
     add_action( 'admin_menu', array( $this, 'm4h_admin_menu') );
+    add_shortcode( 'm4h-search', 'm4h_members_search' );
+    //add_shortcode( 'm4h-search', array( $this, 'm4h_members_search' ) );
 	} // end constructor
 	
   private function init_plugin_const() {
@@ -86,6 +74,12 @@ class M4H {
       add_menu_page( 'M4H Directory', 'M4H Directory', 'administrator', 'm4h-admin', 'm4h_view_add_user' );
     }
   }
+
+  /*
+  function m4h_members_search() {
+
+  }
+  */
 
 	/**
 	 * Fired when the plugin is activated.
@@ -169,7 +163,7 @@ class M4H {
 	 */
 	public function register_plugin_styles() {
 		wp_enqueue_style( PLUGIN_NAME . '-plugin-styles', plugins_url( PLUGIN_NAME . '/css/display.css' ) );
-    wp_enqueue_style( PLUGIN_NAME . '-bootstrap', plugins_url( PLUGIN_NAME . '/css/bootstrap.min.css' ) );	
+    //wp_enqueue_style( PLUGIN_NAME . '-bootstrap', plugins_url( PLUGIN_NAME . '/css/bootstrap.min.css' ) );	
 	} // end register_plugin_styles
 	
 	/**
@@ -177,7 +171,7 @@ class M4H {
 	 */
 	public function register_plugin_scripts() {
 		wp_enqueue_script( PLUGIN_NAME . '-jquery', plugins_url( PLUGIN_NAME . '/js/jquery-1.8.3.min.js' ) );
-		wp_enqueue_script( PLUGIN_NAME . '-plugin-script', plugins_url( PLUGIN_NAME . '/js/display.js' ) );
+		//wp_enqueue_script( PLUGIN_NAME . '-plugin-script', plugins_url( PLUGIN_NAME . '/js/display.js' ) );
 		wp_enqueue_script( PLUGIN_NAME . '-bootstrap', plugins_url( PLUGIN_NAME . '/js/bootstrap.min.js' ) );
 	} // end register_plugin_scripts
 	
@@ -213,8 +207,10 @@ class M4H {
 
 // include views
 include_once(WP_PLUGIN_DIR . '/m4h/views/admin.php');
+include_once(WP_PLUGIN_DIR . '/m4h/views/display.php');
 
 // include controllers
 include_once(WP_PLUGIN_DIR . '/m4h/controllers/admin.php');
+include_once(WP_PLUGIN_DIR . '/m4h/controllers/display.php');
 
 $plugin_name = new M4H();

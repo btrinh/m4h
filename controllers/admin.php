@@ -36,27 +36,7 @@ if ( isset( $_POST['m4h-add-user'] ) ) {
     }
 
     m4h_add_member( $data );
-    /*
-    $response = wp_remote_get('http://maps.google.com/maps/api/geocode/json?sensor=false&language=en&address=1320+E+Verlea+Dr,+Tempe,+AZ+85282');
-    if ( !is_wp_error( $response ) ) {
-      $json = json_decode( wp_remote_retrieve_body( $response ) );
-      echo $json->results[0]->geometry->location->lat;
-      echo $json->results[0]->geometry->location->lng;
-    }
-     */
   }
-
-  /*
-  $addrKeys = array( 'address1', 'address2', 'city', 'state', 'zip' );
-
-  foreach ( $addrKeys as $addrKey ) {
-    $address[$addrKey] = sanitize_text_field( $_POST[$addrKey] );
-  }
-
-  $username = strtolower( substr($fname, 0, 1) . $lname );
-  */
-
-
 }
 
 /*
