@@ -12,7 +12,9 @@ if ( isset( $_POST['m4h-add-user'] ) ) {
     'Address 2' => array( $_POST['address2'], false ),
     'City' => array( $_POST['city'], true ),
     'State' => array( $_POST['state'], true ),
-    'Zip' => array( $_POST['zip'], true )
+    'Zip' => array( $_POST['zip'], true ),
+    'Latitude' => array( $_POST['lat'], false),
+    'Longitude' => array( $_POST['lng'], false)
   );
 
   $Errors = validate_data($data);
@@ -27,8 +29,13 @@ if ( isset( $_POST['m4h-add-user'] ) ) {
       'zip'      => $data['Zip']
     ); 
 
-    $coords = geocode( $address );
+    if ( $data['Latitude'] === '' || $data['Longitude'] === '') {
+      $coords = geocode( $address );
+      $data['Latitude'] = $coords['lat'];
+      $data['Longitude'] = $coords['lng'];
+    }
 
+    m4h_add_member( $data );
     /*
     $response = wp_remote_get('http://maps.google.com/maps/api/geocode/json?sensor=false&language=en&address=1320+E+Verlea+Dr,+Tempe,+AZ+85282');
     if ( !is_wp_error( $response ) ) {
@@ -96,6 +103,7 @@ function sanitize_data( $data ) {
   }
   return $data;
 }
+
 function geocode($address) {
   $gapi = 'http://maps.google.com/maps/api/geocode/json?sensor=false&language=en&address=';
 
@@ -105,9 +113,8 @@ function geocode($address) {
   } 
 
   // format address
-  //$address = urlencode( implode( ', ', array_filter( $address, strlen ) ) );
   $address = urlencode( implode( ', ', $address) );
- 
+
   $response = wp_remote_get( $gapi . $address );
   if ( !is_wp_error( $response ) ) {
     $json = json_decode( wp_remote_retrieve_body( $response ) );
@@ -116,5 +123,28 @@ function geocode($address) {
     'lat' => $json->results[0]->geometry->location->lat, 
     'lng' => $json->results[0]->geometry->location->lng
   );
+}
+
+function m4h_add_member($data) {
+  global $wpdb;
+  $sql = $wpdb->prepare( "
+    INSERT INTO $wpdb->prefix" . "m4h
+    ( fname, lname, email, phone, website, address1, address2, city, state, zip, lat, lng )
+    VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %10.7f, %10.7f)",
+      $data['First Name'], 
+      $data['Last Name'], 
+      $data['Email'], 
+      $data['Phone Number'], 
+      $data['Website'], 
+      $data['Address 1'], 
+      $data['Address 2'], 
+      $data['City'], 
+      $data['State'], 
+      $data['Zip'], 
+      $data['Latitude'], 
+      $data['Longitude'] 
+  );
+
+  $wpdb->query( $sql );
 }
 ?>

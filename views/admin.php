@@ -146,6 +146,21 @@ global $Errors;
       <input name="zip" class="span3" placeholder="Zip" type="text" value="<?php if(isset($_POST['zip'])) echo( htmlspecialchars( $_POST['zip']) ); ?>">
       </div>
     </div>
+
+    <div class="control-group">
+      <label class="control-label" for="zip">Latitude (optional)</label>
+      <div class="controls">
+      <input name="lat" class="span3" placeholder="Latitude" type="text" value="<?php if(isset($_POST['lat'])) echo( htmlspecialchars( $_POST['lat']) ); ?>">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="zip">Longitude (optional)</label>
+      <div class="controls">
+      <input name="lng" class="span3" placeholder="Longitude" type="text" value="<?php if(isset($_POST['lng'])) echo( htmlspecialchars( $_POST['lng']) ); ?>">
+      </div>
+    </div>
+
     <div class="form-actions">
       <button type="submit" id="m4h-add-user" name="m4h-add-user" class="btn btn-primary">Add User</button>
     </div>
