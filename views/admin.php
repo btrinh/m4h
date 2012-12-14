@@ -108,12 +108,14 @@ global $Errors;
       'Address 2' => array('address2', false, ''),
       'City' => array('city', true, '')
     );
+    $_POST['state'] = isset( $_POST['state'] ) ? htmlspecialchars( $_POST['state'] ) : '';
     foreach( $fields as $k => $v) {
+      $_POST[ $v[0] ] = isset( $_POST[ $v[0] ] ) ? htmlspecialchars( $_POST[ $v[0] ] ) : '';
     ?>
     <div class="control-group">
       <label class="control-label" for="<?php echo $v[0]; ?>"><?php echo $k; ?></label>
       <div class="controls">
-      <input type="text" class="span3" placeholder="<?php echo $k ?>" name="<?php echo $v[0] ?>">
+      <input type="text" class="span3" placeholder="<?php echo $k ?>" name="<?php echo $v[0] ?>" value="<?php echo $_POST[ $v[0] ]; ?>">
       <?php
       if ( !empty( $v[2] ) && $v[2] !== 0 )
         echo "<span class=\"help-inline\">$v[2]</span>";
@@ -130,7 +132,7 @@ global $Errors;
         <?php
         foreach( $states as $state => $state_abbr ) {
         ?>
-          <option value="<?php echo $state_abbr; ?>"><?php echo $state; ?></option>
+          <option value="<?php echo $state_abbr; ?>" <?php if( isset($_POST['state']) && $_POST['state'] == $state_abbr ) echo " selected"; ?>><?php echo $state; ?></option>
         <?php
         }
         ?>
@@ -141,7 +143,7 @@ global $Errors;
     <div class="control-group">
       <label class="control-label" for="zip">Zip</label>
       <div class="controls">
-        <input name="zip" class="span3" placeholder="Zip" type="text">
+      <input name="zip" class="span3" placeholder="Zip" type="text" value="<?php if(isset($_POST['zip'])) echo( htmlspecialchars( $_POST['zip']) ); ?>">
       </div>
     </div>
     <div class="form-actions">
