@@ -7,9 +7,25 @@ add_action( 'wp_enqueue_scripts', function() {
 //*/
 
 function m4h_members_search() {
+global $SearchErrors;
 ?>
+<div class="m4h">
 <form id="m4h-members-search" class="" method="post" action="">
   <legend>Find A Realtor In Your Community Who Gives Back</legend>
+  <?php
+  if( !empty( $SearchErrors ) ) {
+  ?>
+  <div class="alert alert-error alert-block">
+  <h4>Errors:</h4> 
+  <?php
+    foreach ( $SearchErrors as $error ) {
+      echo "<p>$error</p>";
+    }
+  ?>
+  </div>
+  <?php
+  }
+  ?>
   <div class="control">
     <select class="span2" name="search-type">
       <option selected>Search by...</option>
@@ -21,8 +37,7 @@ function m4h_members_search() {
   </div>
 
   <div class="control-group">
-
-    <input class="span4" name="search-query" type="text">
+    <input class="span4" name="search-query" type="text" placeholder="Enter search query" style="width:450px">
     <input class="input-small" name="search-radius" type="text" placeholder="Radius (miles)">
   </div>
   
@@ -31,6 +46,7 @@ function m4h_members_search() {
   </div>
 
 </form>
+</div>
 <?php
 }
 ?>

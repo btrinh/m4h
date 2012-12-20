@@ -1,6 +1,6 @@
 <?php
 if ( isset( $_POST['m4h-search'] ) ) {
-  global $SearchErrors;
+  global $SearchErrors, $wpdb, $qresults;
 
   $query = array(
     'type' => array( $_POST['search-type'], true) ,
@@ -19,6 +19,12 @@ if ( isset( $_POST['m4h-search'] ) ) {
 
   if( empty( $SearchErrors ) ) {
     $query =  sanitize_query( $query );
+
+    // perform query
+    if( $query['type'] == 'address' ) {
+      
+    }
+
   }
 
 }
@@ -29,8 +35,8 @@ function validate_query($data) {
 
   // check for nulls
   foreach( $data as $k => $v ) {
-    if ( $v[0] !== '' && $v[1] === true )
-      array_push( $SearchErrors, $k);
+    if ( $v[0] === '' && $v[1] === true )
+      array_push( $SearchErrors, "Search $k is invalid.");
   }
 
   if( empty( $SearchErrors ) ) {
